@@ -241,7 +241,7 @@ EnvirGui : JITGui {
 			oldVal = prevEnvir[newKey];
 			if (isSameKey.not or: { oldVal != newVal }) {
 			//	"val for % has changed: %\n".postf(key, newval);
-				this.setField(i, newKey, newVal, isSameKey);
+				this.setField(i, newKey, newVal, false);
 			};
 		};
 	}
@@ -422,6 +422,8 @@ EnvirGui : JITGui {
 		if (widge.notNil) { widge.controlSpec_(spec).value_(widge.value) }
 	}
 
+	// this is for global specs only - use JITLibExtensions
+	//  for local specs attached to proxies.
 	getSpec { |key, value|
 		var spec = specs[key] ? Spec.specs[key];
 		spec = spec ?? { Spec.guess(key, value) };
