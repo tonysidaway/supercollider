@@ -30,7 +30,9 @@ before_script:
  - iflin cmake -DSC_EL=no -DCMAKE_PREFIX_PATH=/usr/lib/x86_64-linux-gnu/qt4/ -DCMAKE_INSTALL_PREFIX:PATH=$PWD/Install -DCMAKE_BUILD_TYPE=Release .. --debug-output
 
 script: 
- - make install
+#- make install
+ - mkdir Install
+ - echo "A build" > Install/build.txt
  
 before_deploy:
  # required for github releases
@@ -48,9 +50,8 @@ before_deploy:
 deploy:
  # s3 upload - every commit
  - provider: s3
-   access_key_id: AKIAJJHRJG4Y6SVYKUKA
-   secret_access_key:
-     secure: "K8rmhxlPAon0wK/b72jC1zBw+dHe/AN6PFQ3ZcqXLVtAwBbL66dUILZtOb3NriSq8HGWZPKVTuH0M/yRTc2IJcmFjMsN5FAWr7ojntsJuFewgkQECyCtiUKSvfGTIXRu4dtyJ/QG1Ecftj8s74DIJaOe9SV8ZPDrZShfvFRUbQg="
+   access_key_id: $AWS_KEY
+   secret_access_key: $AWS_SECRET
    bucket: supercollider
    local-dir: $HOME/artifacts
    upload-dir: builds/$BUILD_PREFIX
