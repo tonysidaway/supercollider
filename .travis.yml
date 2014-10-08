@@ -32,7 +32,8 @@ before_script:
 script: 
 #- make install
  - mkdir Install
- - echo "A build" > Install/build.txt
+ - mkdir Install/SuperCollider
+ - echo "A build" > Install/SuperCollider/build.txt
  
 before_deploy:
  # required for github releases
