@@ -33,11 +33,7 @@
 #include "SC_Win32Utils.h"
 #endif
 
-#ifdef __linux__
-# include <errno.h>
-#endif
-
-#ifdef __FreeBSD__
+#if defined(__linux__) || defined(__FreeBSD__) || defined(__OpenBSD__)
 # include <errno.h>
 #endif
 

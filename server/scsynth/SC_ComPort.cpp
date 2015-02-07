@@ -36,9 +36,11 @@
 	# define bzero( ptr, count ) memset( ptr, 0, count )
 #else
 	#include <netinet/tcp.h>
+	#include <sys/types.h>
+	#include <sys/socket.h>
 #endif
 
-#if defined(__linux__) || defined(__FreeBSD__)
+#if defined(__linux__) || defined(__FreeBSD__) || defined(__OpenBSD__)
 	#include <errno.h>
 	#include <unistd.h>
 #endif
