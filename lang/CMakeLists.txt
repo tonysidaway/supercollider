@@ -135,7 +135,7 @@ if(UNIX)
 				LangPrimSource/${HID_UTIL_DIR}/IOHIDDevice_.c
 			)
 		endif()
-	else(APPLE)
+	elseif (CMAKE_SYSTEM_NAME MATCHES "Linux")
 		if(ALSA_FOUND)
 			list(APPEND sclang_sources LangPrimSource/SC_AlsaMIDI.cpp)
 		endif()

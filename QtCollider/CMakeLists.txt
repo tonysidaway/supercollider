@@ -154,11 +154,11 @@ if(APPLE)
   set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -F/Library/Frameworks")
 endif()
 
-if (CMAKE_SYSTEM_NAME MATCHES "Linux")
+if ((CMAKE_SYSTEM_NAME MATCHES "Linux") OR (CMAKE_SYSTEM_NAME MATCHES "OpenBSD"))
 	find_package(X11)
 
 	if(X11_FOUND)
-		include_directories(X11_INCLUDE_DIR)
+		include_directories(${X11_INCLUDE_DIR})
 		list(APPEND QT_COLLIDER_LIBS ${X11_X11_LIB})
 	elseif()
 		message(SEND_ERROR "Cannot find libx11")
