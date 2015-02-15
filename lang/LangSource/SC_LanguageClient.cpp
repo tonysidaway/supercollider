@@ -99,7 +99,7 @@ void SC_LanguageClient::initRuntime(const Options& opt)
 {
 	// start virtual machine
 	if (!mRunning) {
-#ifdef __linux__
+#if defined(__linux__) || defined(__FreeBSD__) || defined(__OpenBSD__)
 		char deprecatedSupportDirectory[PATH_MAX];
 		sc_GetUserHomeDirectory(deprecatedSupportDirectory, PATH_MAX);
 		sc_AppendToPath(deprecatedSupportDirectory, PATH_MAX, "share/SuperCollider");

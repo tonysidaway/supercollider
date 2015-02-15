@@ -111,6 +111,9 @@ elseif(CMAKE_SYSTEM_NAME MATCHES "Linux")
 elseif(CMAKE_SYSTEM_NAME MATCHES "FreeBSD")
 	add_definitions("-DSC_FREEBSD")
 	add_definitions(-DSC_DATA_DIR="${CMAKE_INSTALL_PREFIX}/share/SuperCollider")
+elseif(CMAKE_SYSTEM_NAME MATCHES "OpenBSD")
+	add_definitions("-DSC_OPENBSD")
+	add_definitions(-DSC_DATA_DIR="${CMAKE_INSTALL_PREFIX}/share/SuperCollider")
 endif()
 
 if(WIN32)
@@ -325,7 +328,7 @@ add_subdirectory(lang)
 add_subdirectory(editors)
 add_subdirectory(platform)
 
-if(CMAKE_SYSTEM_NAME MATCHES "Linux" OR CMAKE_SYSTEM_NAME MATCHES "FreeBSD")
+if(CMAKE_SYSTEM_NAME MATCHES "Linux" OR CMAKE_SYSTEM_NAME MATCHES "FreeBSD" OR CMAKE_SYSTEM_NAME MATCHES "OpenBSD")
     install(DIRECTORY include/common include/plugin_interface include/server include/lang
         DESTINATION ${CMAKE_INSTALL_PREFIX}/include/SuperCollider
 	FILES_MATCHING PATTERN "*.h" PATTERN "*.hpp"
