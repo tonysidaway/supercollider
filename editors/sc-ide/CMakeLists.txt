@@ -204,7 +204,7 @@ elseif(WIN32)
     set_target_properties( ${ide_name} PROPERTIES WIN32_EXECUTABLE TRUE )
 endif()
 
-if(CMAKE_SYSTEM_NAME MATCHES "Linux")
+if(LINUX)
     target_link_libraries(${ide_name} rt)
 endif()
 

@@ -154,7 +154,7 @@ if(APPLE)
   set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -F/Library/Frameworks")
 endif()
 
-if ((CMAKE_SYSTEM_NAME MATCHES "Linux") OR (CMAKE_SYSTEM_NAME MATCHES "OpenBSD"))
+if (LINUX OR OPENBSD)
 	find_package(X11)
 
 	if(X11_FOUND)

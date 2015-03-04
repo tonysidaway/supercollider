@@ -50,8 +50,12 @@ if(APPLE)
 	MESSAGE( STATUS "Using HID Utilities from folder '${HID_UTIL_DIR}'")
 endif()
 
-if (CMAKE_SYSTEM_NAME MATCHES "Linux")
+if     (CMAKE_SYSTEM_NAME MATCHES "Linux")
 	set(LINUX 1)
+elseif (CMAKE_SYSTEM_NAME MATCHES "FreeBSD")
+	set(FREEBSD 1)
+elseif (CMAKE_SYSTEM_NAME MATCHES "OpenBSD")
+	set(OPENBSD 1)
 endif()
 
 #############################################
@@ -106,12 +110,12 @@ if(APPLE)
 	set_property(DIRECTORY
 		APPEND
 		PROPERTY COMPILE_DEFINITIONS SC_DARWIN)
-elseif(CMAKE_SYSTEM_NAME MATCHES "Linux")
+elseif(LINUX)
 	add_definitions(-DSC_DATA_DIR="${CMAKE_INSTALL_PREFIX}/share/SuperCollider")
-elseif(CMAKE_SYSTEM_NAME MATCHES "FreeBSD")
+elseif(FREEBSD)
 	add_definitions("-DSC_FREEBSD")
 	add_definitions(-DSC_DATA_DIR="${CMAKE_INSTALL_PREFIX}/share/SuperCollider")
-elseif(CMAKE_SYSTEM_NAME MATCHES "OpenBSD")
+elseif(OPENBSD)
 	add_definitions("-DSC_OPENBSD")
 	add_definitions(-DSC_DATA_DIR="${CMAKE_INSTALL_PREFIX}/share/SuperCollider")
 endif()
@@ -176,7 +180,7 @@ endif (SC_QT)
 
 option(ENABLE_TESTSUITE "Compile testsuite." ON)
 
-if(CMAKE_SYSTEM_NAME MATCHES "Linux")
+if(LINUX)
     option(SUPERNOVA "Build with supernova as optional audio synthesis server" ON)
 elseif()
     option(SUPERNOVA "Build with supernova as optional audio synthesis server" OFF)
@@ -192,7 +196,7 @@ option(NO_GPL3 "Disable GPL3 code, for pure-GPL2 situations. (Not recommended.)"
 
 option(SCLANG_SERVER "Build with internal server." ON)
 
-if(CMAKE_SYSTEM_NAME MATCHES "Linux")
+if(LINUX)
 	option(SC_WII "Build sclang with WII support" ON)
 endif()
 
@@ -328,7 +332,7 @@ add_subdirectory(lang)
 add_subdirectory(editors)
 add_subdirectory(platform)
 
-if(CMAKE_SYSTEM_NAME MATCHES "Linux" OR CMAKE_SYSTEM_NAME MATCHES "FreeBSD" OR CMAKE_SYSTEM_NAME MATCHES "OpenBSD")
+if(LINUX OR FREEBSD OR OPENBSD)
     install(DIRECTORY include/common include/plugin_interface include/server include/lang
         DESTINATION ${CMAKE_INSTALL_PREFIX}/include/SuperCollider
 	FILES_MATCHING PATTERN "*.h" PATTERN "*.hpp"

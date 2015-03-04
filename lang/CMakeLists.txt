@@ -19,7 +19,7 @@ endif()
 
 if(APPLE)
 	include_directories("LangPrimSource/${HID_UTIL_DIR}")
-elseif(CMAKE_SYSTEM_NAME MATCHES "Linux")
+elseif(LINUX)
 	find_package(ALSA)
 elseif(WIN32)
 	find_package(Portmidi)

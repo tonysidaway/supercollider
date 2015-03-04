@@ -142,20 +142,32 @@ bool sc_IsSymlink(const char* path)
 
 bool sc_IsNonHostPlatformDir(const char *name)
 {
-#if defined(SC_IPHONE)
-	const char a[] = "linux", b[] = "windows", c[]="osx";
-#elif defined(__APPLE__)
-	const char a[] = "linux", b[] = "windows", c[]="iphone";
-#elif defined(__linux__)
-	const char a[] = "osx", b[] = "windows", c[]="iphone";
-#elif defined(__FreeBSD__) || defined(__OpenBSD__)
-	const char a[] = "osx", b[] = "windows", c[]="iphone";
-#elif defined(_WIN32)
-	const char a[] = "osx", b[] = "linux", c[]="iphone";
+  const char *nonHostDirs[] = {
+#if !defined(SC_IPHONE)
+    "iphone",
 #endif
-	return ((strcmp(name, a) == 0) ||
-			(strcmp(name, b) == 0) ||
-			(strcmp(name, c) == 0));
+#if !defined(SC_APPLE)
+    "osx",
+#endif
+#if  !defined(__linux__) \
+  && !defined(__FreeBSD__) \
+  && !defined(__NetBSD__)
+    "linux",
+#endif
+#if !defined(__OpenBSD__)
+    "openbsd",
+#endif
+#if !defined(_WIN32)
+    "windows",
+#endif
+    NULL
+  };
+  for (int i = 0; nonHostDirs[i] != NULL; ++i) {
+    if (0 == strcmp(name, nonHostDirs[i])) {
+      return true;
+    }
+  }
+  return false;
 }
 
 

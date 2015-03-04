@@ -25,7 +25,7 @@ if(!APPLE)
     )
 endif()
 
-if (CMAKE_SYSTEM_NAME MATCHES "Linux")
+if (LINUX)
     set(simple_tests ${simple_tests}
         perf_counter_test.cpp
     )
